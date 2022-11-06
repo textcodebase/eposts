@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../../css/home.css" rel="stylesheet">
+    <link href="../../css/topnav.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div class="title">ePosts</div>
+            <div class="topnav mtop">
+                <a class="active" href="../../index.html">Java</a>
+                <a href="../../csharp.html">C#</a>
+                <a href="../../cpp.html">C++</a>
+                <a href="../../python.html">Python</a>
+                <a href="../../datascience.html">Data Science</a>
+            </div>
+        </div>
+        <div class="main ">
+            <div>
+                <h5 class="breadcrum"><a href="../../index.html">Java</a> / <a href="../../index.html#xml">XML</a></h5>
+                <div style="margin: 30px;">
+                <h2>Accessing XML nodes using XPATH</h2>
+                <p>
+                    The given program takes a XML, XPATH as String parameter and produces the following
+                    output.
+                    <div class="codesample">
+                        <pre>
+                            Julian
+                            Kabilan
+                            Jim Carry
+                        </pre>
+                    </div> 
+                </p>
+                <div>
+            </div>
+                <div class="codesample">
+
+                
+                    <pre>
+                        package com.eposts.io;
+
+                        import java.io.ByteArrayInputStream;
+
+                        import javax.xml.parsers.DocumentBuilder;
+                        import javax.xml.parsers.DocumentBuilderFactory;
+                        import javax.xml.xpath.XPath;
+                        import javax.xml.xpath.XPathConstants;
+                        import javax.xml.xpath.XPathFactory;
+
+                        import org.w3c.dom.Document;
+                        import org.w3c.dom.Node;
+                        import org.w3c.dom.NodeList;
+
+
+
+                        public class XPathReader {
+
+                            
+                            private String strXML = "";
+                            private String xpath = "";
+                            
+                            public XPathReader(String strXML,String xpath) throws Exception {
+                                this.strXML = strXML;
+                                this.xpath = xpath;
+                            }
+
+                            private String[] process() throws Exception {
+                                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                                DocumentBuilder builder = factory.newDocumentBuilder();
+                                ByteArrayInputStream input = new ByteArrayInputStream(this.strXML.getBytes());
+                                Document doc = builder.parse(input);
+                                XPath xPath = XPathFactory.newInstance().newXPath();
+                                NodeList nodeList = (NodeList) xPath.compile(xpath).evaluate(doc, XPathConstants.NODESET);
+                                String[] names = new String[nodeList.getLength()];
+                                for (int i = 0; i < nodeList.getLength(); i++) {
+                                    Node nNode = nodeList.item(i);
+                                    names[i] = nNode.getTextContent();
+                                }
+                                return names;
+                            }
+
+                            public void read() throws Exception {
+                                String[] values = process();
+                                for(String value:values) {
+                                    System.out.println(value);
+                                }
+                            }
+
+                            public static void main(String[] args) throws Exception {
+                                String strXML ="&lt;students&gt;"
+                                                + "&lt;student&gt;"
+                                                + "&lt;name&gt;Julian&lt;/name&gt;"
+                                                + "&lt;/student&gt;"
+                                                + "&lt;student&gt;"
+                                                + "&lt;name&gt;Kabilan&lt;/name&gt;"
+                                                + "&lt;/student&gt;"
+                                                + "&lt;student&gt;"
+                                                + "&lt;name&gt;Jim Carry&lt;/name&gt;"
+                                                + "&lt;/student&gt;"
+                                            + "&lt;/students&gt;"
+                                                ;
+                                
+                                String strXPATH = "/students/student/name";
+                                
+                                XPathReader reader = new XPathReader(strXML,strXPATH);
+                                reader.read();
+                            }
+
+                        }
+
+                    </pre>
+                </div>
+                    
+            </div>
+        </div>
+        <h5 class="breadcrum"><a href="../../index.html">Java</a> / <a href="../../index.html#jdbc">XML</a></h5>
+
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <!-- <script src="js/home.js"></script> -->
+    <script src="../../js/about.js"></script>
+
+</body>
+
+</html>

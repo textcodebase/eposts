@@ -63,3 +63,7 @@ body {
     background-color: lightblue;
     color: blue;
 }
+ul>li {
+    margin: 0px;
+    padding: 0px;
+}
