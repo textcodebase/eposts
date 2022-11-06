@@ -1,0 +1,65 @@
+html,
+body {
+    height: 1000px;
+    background-color: darkgray;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    margin: none;
+    min-width: 90%;
+    min-height: 1000px;
+    padding: 0px;
+    background-color: aliceblue;
+}
+
+.header {
+    /* margin: auto; */
+    min-width: 100%;
+    min-height: 150px;
+}
+
+.title {
+    color: blue;
+    font-size: 50px;
+}
+
+.label {
+    color: blue;
+    font-size: 15px;
+}
+
+.main {
+    margin: auto;
+    min-width: 100%;
+    min-height: 800px;
+    background-color: ivory;
+}
+
+.footer {
+    /* margin: auto; */
+    min-width: 100%;
+    min-height: 50px;
+}
+
+.mtop {
+    margin-top: 35px;
+}
+
+.fill {
+    background-color: white;/*#333;*/
+}
+
+.border-out {
+    border: 2px solid #333;
+}
+.codesample {
+    margin: 40px;
+    border: 2px solid #333;
+    background-color: lightgray;
+}
+.breadcrum {
+    border: 0px solid #333;
+    background-color: lightblue;
+    color: blue;
+}
