@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../../css/home.css" rel="stylesheet">
+    <link href="../../css/topnav.css" rel="stylesheet">
+    <link href="../../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../../index.html">Home</a>    
+                <a class="active" href="../../java.html">Java</a>
+                <a href="../../csharp.html">C#</a>
+                <a href="../../cpp.html">C++</a>
+                <a href="../../python.html">Python</a>
+                <a href="../../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+                
+                <div style="margin: 30px;">
+                    <h2>A Simple Java Reflection Utility</h2> 
+                    <img src="../../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 09, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                    <p>
+                        The below given utility provides a simple interface for accessing reflection properties of a given class.
+                        the utility provides diferent ways of instatiate, reflect on constructors and get method instances,it also
+                        invokes methods.
+                    </p>
+                    <div class="codesample">
+                        <span>
+                            Reflector.java
+                        </span>
+                        <pre>        
+                            <code class="language-java">
+                                package com.text.reflection.io;
+
+                                import java.lang.reflect.Constructor;
+                                import java.lang.reflect.Method;
+                                
+                                public class Reflector {
+                                
+                                    public static Class getClass(String className) 
+                                    throws ClassNotFoundException {
+                                        return Thread.currentThread()
+                                              .getContextClassLoader()
+                                              .loadClass(className);
+                                    }
+                                    
+                                    public static Object getObject(Class clazz) throws Exception {
+                                        Constructor constructor = clazz.getDeclaredConstructor();
+                                        return constructor.newInstance(new Object[] {});
+                                    }
+                                    
+                                    public static Object getObject(Class clazz,Class[] clazzes,Object[] params) throws Exception {
+                                        Constructor constructor = clazz.getDeclaredConstructor(clazzes);
+                                        return constructor.newInstance(params);
+                                    }
+                                    
+                                    public static Method[] getMethods(Class clazz) {
+                                        return clazz.getDeclaredMethods();
+                                    }
+                                    
+                                    public static Method getMethod(Class clazz,String methodName,Class[] params) 
+                                    throws Exception {
+                                        return clazz.getDeclaredMethod(methodName, params);
+                                    }
+                                    
+                                    
+                                    public static void invoke(Method method,Object object,Object[] params) 
+                                    throws Exception {
+                                        method.invoke(object, params);
+                                    }
+                                    
+                                }
+                                
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="codesample">
+                        <span>
+                            Sample.java
+                        </span>
+                        <pre>        
+                            <code class="language-java">
+                                package com.text.reflection.io;
+
+                                public class Sample {
+                                
+                                    private String name, age ="";
+                                    
+                                    public Sample() {
+                                
+                                    }
+                                    
+                                    public Sample(String name,String age) {
+                                        this.name = name;
+                                        this.age = age;
+                                    }
+                                    
+                                    
+                                    
+                                    public String getName() {
+                                        return name;
+                                    }
+                                
+                                    public void setName(String name) {
+                                        this.name = name;
+                                    }
+                                
+                                    public String getAge() {
+                                        return age;
+                                    }
+                                
+                                    public void setAge(String age) {
+                                        this.age = age;
+                                    }
+                                
+                                    public void display(String greet) {
+                                        System.out.println("Displayed....."+greet);
+                                    }
+                                
+                                }
+                                
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="codesample">
+                        <span>
+                            Main.java
+                        </span>
+                        <pre>        
+                            <code class="language-java">
+                                package com.text.reflection.io;
+
+                                import java.lang.reflect.Method;
+                                
+                                public class Main {
+                                
+                                    public static void main(String[] args) throws Exception {
+                                
+                                        Class clazz = Reflector.getClass("com.text.reflection.io.Sample");
+                                        Sample sample1 =  (Sample) Reflector.getObject(clazz);
+                                        Class[] clazzes = new Class[] {String.class,String.class};
+                                        Sample sample2 = (Sample) Reflector.getObject(clazz,clazzes,new String[] {"Julian","20"});
+                                        System.out.println(sample2.getName());
+                                        System.out.println("No of Methods: "+Reflector.getMethods(clazz).length);
+                                        System.out.println("Name of Methods: "+Reflector.getMethod(clazz,"display",new Class[] {String.class}).getName());
+                                        Method method = Reflector.getMethod(clazz,"display",new Class[] {String.class});
+                                        Reflector.invoke(method, sample2, new String[] {"Hello! "});
+                                    }
+                                
+                                }
+                                
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="codesample">
+                        <span>
+                            Output:
+                        </span>
+                        <pre>        
+                            Julian
+                            No of Methods: 5
+                            Name of Methods: display
+                            Displayed.....Hello! 
+                        </pre>
+                    </div>
+                </div>
+                
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../../js/prism.js"></script>   
+    <script src="../../js/about.js"></script>
+
+</body>
+
+</html>
