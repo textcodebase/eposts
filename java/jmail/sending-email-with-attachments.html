@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../../css/home.css" rel="stylesheet">
+    <link href="../../css/topnav.css" rel="stylesheet">
+    <link href="../../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../../index.html">Home</a>    
+                <a class="active" href="../../java.html">Java</a>
+                <a href="../../csharp.html">C#</a>
+                <a href="../../cpp.html">C++</a>
+                <a href="../../python.html">Python</a>
+                <a href="../../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+                
+                <div style="margin: 30px;">
+                    <h2>Sending Emails with Attachments using JavaMail API</h2> 
+                    <img src="../../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 06, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                    <p>
+                        It is similar to sending a simple mail but you need to add multipart data for
+                        including attachment.please include the dependency as below.
+                    </p>
+                    <div class="codesample">
+                        <pre>
+                        <code class="language-xml">
+                            &lt;dependency&gt;
+                                    &lt;groupId&gt;com.sun.mail&lt;/groupId&gt;
+                                    &lt;artifactId&gt;javax.mail&lt;/artifactId&gt;
+                                    &lt;version&gt;1.6.2&lt;/version&gt;
+                            &lt;/dependency&gt;
+                        </code>
+                        </pre>
+                    </div>
+                    <div class="codesample">
+                        <pre>
+                            <code class="language-java">
+                                public class SendEmailWithAttachment {
+
+                                    private static Multipart getMultipartMessageContent() throws Exception {
+                                        MimeBodyPart messageBodyPart = new MimeBodyPart();
+                                        messageBodyPart.setContent("This is a test message", "text/plain");
+                                        MimeBodyPart fileBodyPart = new MimeBodyPart();
+                                        fileBodyPart.attachFile("sample.txt");
+                                        MimeBodyPart fileBodyPart2 = new MimeBodyPart();
+                                        fileBodyPart2.attachFile("sample.txt");
+                                        Multipart multipart = new MimeMultipart();
+                                        multipart.addBodyPart(messageBodyPart);
+                                        multipart.addBodyPart(fileBodyPart);
+                                        multipart.addBodyPart(fileBodyPart2);
+                                        return multipart;
+                                    }
+                                    
+                                    public static void main(String[] args) throws Exception {
+                                        final String username = "yours@gmail.com";
+                                        final String password = "password";
+                                
+                                        Properties prop = new Properties();
+                                        prop.put("mail.smtp.host", "smtp.gmail.com");
+                                        prop.put("mail.smtp.port", "587");
+                                        prop.put("mail.smtp.auth", "true");
+                                        prop.put("mail.smtp.starttls.enable", "true"); //TLS
+                                        
+                                        Session session = Session.getInstance(prop,
+                                                new javax.mail.Authenticator() {
+                                                    protected PasswordAuthentication getPasswordAuthentication() {
+                                                        return new PasswordAuthentication(username, password);
+                                                    }
+                                                });
+                                
+                                        try {
+                                
+                                            Message message = new MimeMessage(session);
+                                            message.setFrom(new InternetAddress("yours@gmail.com"));
+                                            message.setRecipients(
+                                                    Message.RecipientType.TO,
+                                                    InternetAddress.parse("others@gmail.com")
+                                            );
+                                            message.setSubject("Testing Gmail TLS");
+                                            Multipart multipart = getMultipartMessageContent();
+                                
+                                            message.setContent(multipart);
+                                            
+                                            Transport.send(message);
+                                
+                                            System.out.println("Done");
+                                
+                                        } catch (MessagingException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                
+                                }                                
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../../js/prism.js"></script>   
+    <script src="../../js/about.js"></script>
+
+</body>
+
+</html>

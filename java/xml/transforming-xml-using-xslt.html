@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../../css/home.css" rel="stylesheet">
+    <link href="../../css/topnav.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/prism.css">
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../../index.html">Home</a>    
+                <a class="active" href="../../java.html">Java</a>
+                <a href="../../csharp.html">C#</a>
+                <a href="../../cpp.html">C++</a>
+                <a href="../../python.html">Python</a>
+                <a href="../../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+            <div style="margin: 30px;">
+                <h2>Transforming a XML in to another XML using XSL</h2>
+                <img src="../../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                <small>By Justin S A | Last updated: November 06, 2022</small>
+            </div>
+            <div style="margin: 30px;">
+                <p>
+                    The given program takes a source XML file, XSL file and output XML file name as String input and produces the following
+                    output.
+                </p>
+                    <div class="codesample">
+                        <span>Input File:</span>
+                        <pre>
+                            <code class="language-xml">
+                            &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                            &lt;patients&gt;
+                                &lt;patient id="1"&gt;
+                                    &lt;name&gt;Julian&lt;/name&gt;
+                                    &lt;diagnosis&gt;Common Cold&lt;/diagnosis&gt;
+                                    &lt;expense&gt;6000&lt;/expense&gt;
+                                &lt;/patient&gt;
+                                &lt;patient id="2"&gt;
+                                    &lt;name&gt;Kabilan&lt;/name&gt;
+                                    &lt;diagnosis&gt;Broken ankle&lt;/diagnosis&gt;
+                                    &lt;expense&gt;4500&lt;/expense&gt;
+                                &lt;/patient&gt;
+                                &lt;patient id="3"&gt;
+                                    &lt;name&gt;John&lt;/name&gt;
+                                    &lt;diagnosis&gt;Food allergy&lt;/diagnosis&gt;
+                                    &lt;expense&gt;7600&lt;/expense&gt;
+                                &lt;/patient&gt;
+                            &lt;/patients&gt;
+
+                        </code>
+                        </pre>
+                    </div>
+                    <div class="codesample">
+                        <span>XSL File:</span>
+                        <pre>
+                            <code class="language-xml">
+                            &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                            &lt;xsl:stylesheet
+                                xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"&gt;
+                                &lt;xsl:output method="xml" indent="yes" version="1.0" /&gt;
+                                &lt;xsl:template match="/"&gt;
+                                    &lt;claimers&gt;
+                                        &lt;xsl:for-each select="patients/patient"&gt;
+                                            &lt;claimer&gt;
+                                                &lt;id&gt;
+                                                    &lt;xsl:value-of select="@id" /&gt;
+                                                &lt;/id&gt;
+                                                &lt;name&gt;
+                                                    &lt;xsl:value-of select="name" /&gt;
+                                                &lt;/name&gt;
+                                                &lt;amount&gt;
+                                                    &lt;xsl:value-of select="expense" /&gt;
+                                                &lt;/amount&gt;
+                                            &lt;/claimer&gt;
+                                        &lt;/xsl:for-each&gt;
+                                    &lt;/claimers&gt;
+                                &lt;/xsl:template&gt;
+                            &lt;/xsl:stylesheet&gt; 
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="codesample">
+                        <span>Output File:</span>
+                        <pre>
+                            <code class="language-xml">
+                            &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                            &lt;claimers&gt;
+                                &lt;claimer&gt;
+                                    &lt;id&gt;1&lt;/id&gt;
+                                    &lt;name&gt;Julian&lt;/name&gt;
+                                    &lt;amount&gt;6000&lt;/amount&gt;
+                                &lt;/claimer&gt;
+                                &lt;claimer&gt;
+                                    &lt;id&gt;2&lt;/id&gt;
+                                    &lt;name&gt;Kabilan&lt;/name&gt;
+                                    &lt;amount&gt;4500&lt;/amount&gt;
+                                &lt;/claimer&gt;
+                                &lt;claimer&gt;
+                                    &lt;id&gt;3&lt;/id&gt;
+                                    &lt;name&gt;John&lt;/name&gt;
+                                    &lt;amount&gt;7600&lt;/amount&gt;
+                                &lt;/claimer&gt;
+                            &lt;/claimers&gt;  
+                            </code>                          
+                        </pre>
+                    </div>
+                    <div class="codesample">
+
+                    
+                        <pre>
+                            <code class="language-java">
+                            package com.eposts.io;
+
+                            import java.io.FileInputStream;
+                            import java.io.InputStream;
+
+                            import javax.xml.transform.Source;
+                            import javax.xml.transform.Transformer;
+                            import javax.xml.transform.TransformerFactory;
+                            import javax.xml.transform.stream.StreamResult;
+                            import javax.xml.transform.stream.StreamSource;
+
+                            public class XMLTransformer {
+
+                                private String fromFile = "";
+                                private String toFile = "";
+                                private String xslFile = "";
+                                
+                                
+                                
+                                public XMLTransformer(String fromFile,String xslFile ,String toFile) {
+                                    super();
+                                    this.fromFile = fromFile;
+                                    this.xslFile = xslFile;
+                                    this.toFile = toFile;
+                                }
+
+                                public void transform() throws Exception {
+                                    InputStream xslInputStream = new FileInputStream(xslFile);
+                                    Source xslSource = new StreamSource(xslInputStream);
+                                    TransformerFactory factory = TransformerFactory.newInstance();
+                                    Transformer transformer = factory.newTransformer(xslSource);
+                                    InputStream xmlInputStream = new FileInputStream(fromFile);
+                                    StreamSource in = new StreamSource(xmlInputStream);
+                                    StreamResult out = new StreamResult(toFile);
+                                    transformer.transform(in, out);
+                                    
+                                }
+
+
+                                public static void main(String[] args) throws Exception {
+                                    XMLTransformer transformer = new XMLTransformer("patients.xml", "patient-claimer.xsl", "claims.xml");
+                                    transformer.transform();
+                                }
+
+                            }
+
+                        </code>
+                        </pre>
+                    </div>
+            </div>
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../../js/prism.js"></script>
+    <script src="../../js/about.js"></script>
+
+</body>
+
+</html>

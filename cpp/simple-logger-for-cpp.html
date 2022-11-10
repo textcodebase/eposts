@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../css/home.css" rel="stylesheet">
+    <link href="../css/topnav.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../index.html">Home</a>    
+                <a href="../java.html">Java</a>
+                <a href="../csharp.html">C#</a>
+                <a class="active" href="../cpp.html">C++</a>
+                <a href="../python.html">Python</a>
+                <a href="../mailme.html">Mail me</a> 
+            </div>
+        </div>
+        <div class="main ">
+                <div style="margin: 30px;"> 
+                    <h2>Simple Logger API example for C++</h2>
+                    <img src="../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 06, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                    <p>
+                        Logging is a very integral part of any software development activity.there is no
+                        known API for C++ applications.though VC++ and windows providess Event Log and Error
+                        Logs,we developers need a file logger as that of other OOP developers.
+                    </p>
+                    <p>
+                        The following code samples were written for satisfying such a need.
+                    </p>
+                    <div class="codesample">
+                        <span>logger.h</span>
+                        <pre>
+                            <code class="language-cpp">
+                                #pragma once
+                                #include &lt;iostream&gt;
+                                #include &lt;stdio.h&gt;
+                                #include &lt;stdlib.h&gt;
+                                
+                                enum class LogLevel
+                                {
+                                    INFO = 0, DEBUG, WARNING, ERROR
+                                };
+                                class Logger
+                                {
+                                    
+                                private:
+                                
+                                    FILE *file;
+                                    LogLevel m_level = LogLevel::INFO;
+                                    bool is_enabled = true;
+                                    errno_t err;
+                                
+                                    Logger() {
+                                        err = fopen_s(&file,"logger.txt", "w+");
+                                        if (err != 0)
+                                        {
+                                            printf("Log file can not be opened for writing.");
+                                            exit(0);
+                                        }
+                                    }
+                                    
+                                
+                                    bool isEnabled()
+                                    {
+                                        return is_enabled;
+                                    }
+                                    void log(LogLevel level,const char* prefix,const char* type_name, const char* functionname, const char* message)
+                                    {
+                                        if (isEnabled() && m_level >= level) {
+                                            fprintf(file, "[%s][%s-%s] %s \n", prefix, type_name, functionname, message);
+                                            std::cout &lt;&lt;"["&lt;&lt;prefix &lt;&lt;"]["&lt;&lt;type_name &lt;&lt;"-"&lt;&lt;functionname&lt;&lt;"]"&lt;&lt;message&lt;&lt;std::endl;
+                                        }
+                                    }
+                                    
+                                        
+                                
+                                public:
+                                    ~Logger() {
+                                        fclose(file);
+                                    }
+                                    static Logger& getLogger()
+                                    {
+                                        static Logger logger;
+                                        return logger;
+                                    }
+                                
+                                    void setLogLevel(LogLevel level) {
+                                        m_level = level;
+                                    }
+                                
+                                    void enable() {
+                                        is_enabled = true;
+                                    }
+                                    void disable()
+                                    {
+                                        is_enabled = false;
+                                
+                                    }
+                                    void info(const char* type_name,const char* functionname,const char* message) {
+                                    
+                                        log(LogLevel::INFO,"INFO",type_name, functionname, message);
+                                    }
+                                    void debug(const char* type_name, const char* functionname, const char* message) {
+                                        log(LogLevel::DEBUG,"DEBUG", type_name, functionname, message);
+                                    }
+                                    void warn(const char* type_name, const char* functionname, const char* message) {
+                                        log(LogLevel::WARNING,"WARNING", type_name, functionname, message);
+                                    }
+                                    void error(const char* type_name, const char* functionname, const char* message) {
+                                        log(LogLevel::ERROR,"ERROR",type_name,functionname,message);
+                                    }
+                                };
+                                
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                <div class="codesample">
+                    <span>Main.cpp</span>
+                    <pre>
+                    <code class="language-cpp">
+                            #include &lt;iostream&gt;
+                            #include "logger.h"
+                            
+                            int main()
+                            {
+                                Logger logger = Logger::getLogger();
+                                logger.setLogLevel(LogLevel::ERROR);
+                                logger.enable();
+                                logger.warn("Logger","main","Test Warnning Message"); 
+                                logger.info("Logger", "main", "Test Info Message");
+                                logger.error("Logger", "main", "Test Error Message");
+                                logger.debug("Logger", "main", "Test Debug Message");
+                            
+                            }
+                    </code>
+                </pre>
+                </div>
+                <p>
+                    The output in the logger.txt file is given below.
+                </p>
+                <pre>
+
+                    <span>Output: logger.txt</span><br><br>
+                    [WARNING][Logger-main] Test Warnning Message
+                    [INFO][Logger-main] Test Info Message
+                    [ERROR][Logger-main] Test Error Message 
+                    [DEBUG][Logger-main] Test Debug Message
+
+                </pre>
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../js/prism.js"></script>   
+    <script src="../js/about.js"></script>
+
+</body>
+
+</html>

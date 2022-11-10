@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../../css/home.css" rel="stylesheet">
+    <link href="../../css/topnav.css" rel="stylesheet">
+    <link href="../../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../../index.html">Home</a>    
+                <a class="active" href="../../java.html">Java</a>
+                <a href="../../csharp.html">C#</a>
+                <a href="../../cpp.html">C++</a>
+                <a href="../../python.html">Python</a>
+                <a href="../../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+                
+                <div style="margin: 30px;">
+                    <h2>Display Console Menu using Annotations</h2> 
+                    <img src="../../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 06, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                    <p>
+                        Annatations are very handy while creating tools that automate certain functionalities.
+                        annatations are used to mark functionalities, so that they can be processed at run time. 
+                    </p>
+                    <p>
+                        The Following codes demonstrate the way of using annatations while automating menu display.
+                        when it is compined with reflection, we can create and automate the functionalities which 
+                        i haven't covered in this post.
+                    </p>
+                    <p>
+                        Here in this example, I have shown how we can process annatations at run time.
+                    </p>
+                    <div class="codesample">
+                        <span>
+                            Functionality.java
+                        </span>
+                        <pre>
+                            
+                            <code class="language-java">
+                                package com.text.menus.test.io;
+
+                                import static java.lang.annotation.ElementType.METHOD;
+                                import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+                                import java.lang.annotation.Retention;
+                                import java.lang.annotation.Target;
+
+                                @Retention(RUNTIME)
+                                @Target(METHOD)
+                                public @interface Functionality {
+
+                                    int index();
+                                    String name();
+                                    
+                                }
+                            </code>
+                        </pre>
+                    </div>
+
+                    <div class="codesample">
+                        <span>
+                            FunctionalityAnalyzer.java
+                        </span>
+                        <pre>
+                            <code class="language-java">
+                                package com.text.menus.test.io;
+
+                                import java.lang.reflect.Method;
+                                import java.util.ArrayList;
+                                import java.util.Collections;
+
+                                public class FunctionalityAnalyzer {
+
+
+                                    private Class provider;
+                                    
+                                    private ArrayList<Functionality> functions = new ArrayList<Functionality>();
+                                    
+                                    public FunctionalityAnalyzer(Class provider) {
+                                        this.provider = provider;
+                                    }
+                                    
+                                    public void analyze() {
+                                        Method[] methods = this.provider.getDeclaredMethods();
+
+                                        for (Method method : methods) {
+                                            Functionality functionality = method.getAnnotation(Functionality.class);
+                                            if(functionality != null) {
+                                                functions.add(functionality);
+                                            }
+                                        }
+                                    }
+                                    public void print() {
+                                        
+                                        Collections.sort(functions,(o1, o2) -> (o1.index() > o2.index()) ? 1 :
+                                            (o1.index() < o2.index()) ? -1 : 0);
+                                        
+                                        for (Functionality function : functions) {
+                                            System.out.println(function.index()+". "+function.name());
+                                        }
+                                    }
+                                    public int getFunctionCount()
+                                    {
+                                        if(this.functions == null) return 0;
+                                        return this.functions.size();
+                                    }
+                                    
+                                    
+                                }
+
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="codesample">
+                        <span>MathOperations.java</span>
+                        <pre>
+                            <code class="language-java">
+                                package com.text.menus.test.io;
+
+                                public class MathOperations {
+
+                                    
+                                    public MathOperations() {
+                                        
+                                    }
+                                    
+                                    @Functionality(index=1,name="ADD")
+                                    public void add() {
+                                    }
+                                    @Functionality(index=2,name="SUBTRACT")
+                                    public void subtract() {
+                                    }
+                                    
+                                    @Functionality(index=3,name="MULTIPLY")
+                                    public void multiply() {
+                                    }
+                                    
+                                    @Functionality(index=4,name="DIVIDE")
+                                    public void divide() {
+                                    }
+                                    @Functionality(index=5,name="EXIT")
+                                    public void exit() {
+                                    }
+                                }
+
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="codesample">
+                        <span>Main.java</span>
+                        <pre>
+                            <code class="language-java">
+                                package com.text.menus.test.io;
+
+                                public class Main {
+
+                                    public static void main(String[] args) throws Exception {
+                                        FunctionalityAnalyzer analyzer = new FunctionalityAnalyzer(MathOperations.class);
+                                        analyzer.analyze();
+                                        analyzer.print();
+                                    }
+
+                                }
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../../js/prism.js"></script>   
+    <script src="../../js/about.js"></script>
+
+</body>
+
+</html>

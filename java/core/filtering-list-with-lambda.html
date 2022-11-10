@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../../css/home.css" rel="stylesheet">
+    <link href="../../css/topnav.css" rel="stylesheet">
+    <link href="../../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../../index.html">Home</a>    
+                <a class="active" href="../../java.html">Java</a>
+                <a href="../../csharp.html">C#</a>
+                <a href="../../cpp.html">C++</a>
+                <a href="../../python.html">Python</a>
+                <a href="../../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+                
+                <div style="margin: 30px;">
+                    <h2>Filtering an ArrayList using Lambda</h2> 
+                    <img src="../../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 06, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                        <p>
+                            As we know that the lambda provides us many more ways to process the datastructers in java. 
+                            The features like stream, map and reduce would help us in computing the datastructers.
+                        </p>
+                        <p>
+                            Following example shows as how to filter an array list by passing in lambda expressions.
+                        </p>
+                        <div class="codesample">
+                            <span>
+                                Person.java
+                            </span>
+                            <pre>        
+                                <code class="language-java">
+                                    package com.text.eposts.lambda.io;
+
+                                    public class Person {
+                                    
+                                        private int age;
+                                        private String name;
+                                        private Department department;
+                                        private double salary;
+                                    
+                                        public Person(int age, String name, Department department, double salary) {
+                                            super();
+                                            this.age = age;
+                                            this.name = name;
+                                            this.department = department;
+                                            this.salary = salary;
+                                        }
+                                    
+                                        public Department getDepartment() {
+                                            return department;
+                                        }
+                                    
+                                        public void setDepartment(Department department) {
+                                            this.department = department;
+                                        }
+                                    
+                                        public double getSalary() {
+                                            return salary;
+                                        }
+                                    
+                                        public void setSalary(double salary) {
+                                            this.salary = salary;
+                                        }
+                                    
+                                        public int getAge() {
+                                            return age;
+                                        }
+                                    
+                                        public void setAge(int age) {
+                                            this.age = age;
+                                        }
+                                    
+                                        public String getName() {
+                                            return name;
+                                        }
+                                    
+                                        public void setName(String name) {
+                                            this.name = name;
+                                        }
+                                    
+                                        public String toString() {
+                                            return getName();
+                                        }
+                                    }
+                                    
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="codesample">
+                            <span>
+                                Department.java
+                            </span>
+                            <pre>        
+                                <code class="language-java">
+                                    package com.text.eposts.lambda.io;
+
+                                    public enum Department {
+                                            
+                                        ACCOUNTS,HR,PROCURMENT,RESEARCH,ADMIN;
+                                    }
+                                    
+                                </code>
+                            </pre>
+                        </div>
+                        <div class="codesample">
+                            <span>
+                                FilterList.java
+                            </span>
+                            <pre>        
+                                <code class="language-java">
+                                    package com.text.eposts.lambda.io;
+
+                                    import java.util.ArrayList;
+                                    import java.util.stream.Collectors;
+                                    
+                                    public class FilterList {
+                                    
+                                        public static void main(String[] args) {
+                                            ArrayList&lt;Person&gt; ps = new ArrayList&lt;Person&gt;();
+                                            ps.add(new Person(20, "justin", Department.ACCOUNTS, 4000));
+                                            ps.add(new Person(40, "julian", Department.ACCOUNTS, 6000));
+                                    
+                                            ps.add(new Person(20, "justin2", Department.RESEARCH, 4000));
+                                            ps.add(new Person(40, "julian2", Department.RESEARCH, 6000));
+                                    
+                                            ps.add(new Person(20, "justin3", Department.ADMIN, 4000));
+                                            ps.add(new Person(40, "julian3", Department.ADMIN, 6000));
+                                    
+                                            ps.add(new Person(20, "justin4", Department.HR, 4000));
+                                            ps.add(new Person(40, "julian4", Department.HR, 6000));
+                                    
+                                            
+                                            //checks all the elements in the list match the predicate passed,and returns
+                                            //a boolean value.
+                                            System.out.println("All Match age > 20 : "+ps.stream().allMatch((p) -> (p.getAge() > 20)));
+                                            System.out.println("All Match age > 10 : "+ps.stream().allMatch((p) -> (p.getAge() > 10)));
+                                    
+                                            //anyMatch will check for any single match in the list.
+                                            System.out.println("Any Match age > 20 :"+ps.stream().anyMatch((p) -> (p.getAge() > 20)));
+                                            
+                                            //noneMatch evaluates all element for no match.
+                                            System.out.println("None Match age > 60 :"+ps.stream().noneMatch((p) -> (p.getAge() > 60)));
+                                    
+                                            
+                                            
+                                            //Simple Filtering		
+                                            System.out.println("Filter No.of Person who's age > 20 : "+ps.stream().filter((p) -> (p.getAge() > 20)).count());
+                                            System.out.println("List of Persons who's name Starts with 'jul':"+ 
+                                                                ps.stream().filter((p) -> (p.getName().startsWith("jul"))).collect(Collectors.toList()));
+                                            System.out.println(ps.stream().filter((p) -> (p.getDepartment() == Department.ACCOUNTS)));
+                                    
+                                            //complex filtering
+                                            System.out.println(ps.stream().filter((p)->p.getAge() >20)
+                                            .filter((p)->p.getName().startsWith("j"))
+                                            .filter((p)->p.getSalary() >=6000).count());
+                                            
+                                            
+                                            
+                                        }
+                                    
+                                    }
+                                    
+                                </code>
+                            </pre>
+                        </div>
+                </div>
+                
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../../js/prism.js"></script>   
+    <script src="../../js/about.js"></script>
+
+</body>
+
+</html>

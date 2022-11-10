@@ -10,7 +10,7 @@ body {
     min-width: 90%;
     min-height: 1000px;
     padding: 0px;
-    background-color: aliceblue;
+    background-color: white;
 }
 
 .header {
@@ -19,13 +19,17 @@ body {
     min-height: 150px;
 }
 
+.title-e{
+    color: #11ff00;/*blue;*/
+    font-size: 50px;
+}
 .title {
-    color: blue;
+    color: #333;
     font-size: 50px;
 }
 
 .label {
-    color: blue;
+    color: #333;
     font-size: 15px;
 }
 
@@ -55,15 +59,17 @@ body {
 }
 .codesample {
     margin: 40px;
+   /* 
     border: 2px solid #333;
     background-color: lightgray;
+    */
 }
 .breadcrum {
     border: 0px solid #333;
-    background-color: lightblue;
-    color: blue;
+    background-color: #b9f6ea;
+    color: #333;
 }
-ul>li {
-    margin: 0px;
-    padding: 0px;
+h6 {
+    margin: 2px;
+    padding: 2px;
 }

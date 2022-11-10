@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../css/home.css" rel="stylesheet">
+    <link href="../css/topnav.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../index.html">Home</a>    
+                <a href="../java.html">Java</a>
+                <a href="../csharp.html">C#</a>
+                <a class="active" href="../cpp.html">C++</a>
+                <a href="../python.html">Python</a>
+                <a href="../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+            <div style="margin: 30px;">
+                <h2>Writing Data to a Binary File using C++</h2> 
+                <img src="../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                <small>By Justin S A | Last updated: November 06, 2022</small>
+            </div>
+            <div style="margin: 30px;">
+
+                <p>
+                    The following code uses struct as a data holder(accentry.h),and stores the data to a binary file.
+                    the datastore.h file provides the skeleton to the accentry application.
+
+                    This application provides way to store and retrive account entry on a particular\
+                    date.
+
+                    the datastore.cpp file provides the complete implementation for its skeleton declared
+                    in the datastore.h file.
+                </p>
+                <p>
+                    <div class="codesample">
+                        <span>accentry.h</span>
+
+                    <pre>
+                        <code class="language-cpp">
+
+
+                            #include &lt;string&gt;
+                            using namespace std;
+                            
+                            namespace accns{
+                            
+                                struct Accountentry
+                                {
+                                    string edate;
+                                    float income;
+                                    float expense;
+                                    bool is_deleted = false;
+                                };
+                            
+                            } 
+                            </code>                   
+                    </pre>
+                    </div>
+                    <div class="codesample">
+                        <span>datastore.h</span>
+
+                    <pre>
+                        <code class="language-cpp">
+
+
+                            #include &lt;fstream&gt;
+                            #include &lt;iostream&gt;
+                            #include &lt;string&gt;
+                            using namespace std;
+                            
+                            class DataStore {
+                            
+                            private:
+                                accns::Accountentry entries[10];
+                               
+                            public:
+                                
+                                int getRecordCount();
+                                void write_data(string fileName,accns::Accountentry entries[]);
+                            
+                                void write_data(accns::Accountentry entry);
+                                void write_data(accns::Accountentry entries[]);
+                                void update_data(accns::Accountentry entry);
+                                accns::Accountentry fetch_data(accns::Accountentry param);
+                                accns::Accountentry * list_all_data();
+                                void delete_data(accns::Accountentry param);
+                                void undo_delete_data(accns::Accountentry param);
+                                accns::Accountentry * list_all_data(int month);
+                                void printAll();
+                                 
+                            
+                            };
+                        </code>                          
+                    </pre>
+                    </div>
+                    <div class="codesample">
+                        <span>datastore.cpp</span>
+                        <pre>
+                            <code class="language-cpp">
+                                #include &lt;fstream&gt;
+                                #include &lt;iostream&gt;
+                                #include &lt;accentry.h&gt;
+                                #include &lt;string&gt;
+                                
+                                using namespace std;
+                                
+                                void printAll(accns::Accountentry entries[])
+                                {
+                                    cout &lt;&lt; endl &lt;&lt; "Date" &lt;&lt; '\t' &lt;&lt; "Income" &lt;&lt; '\t' &lt;&lt;"Expense" &lt;&lt; '\t' &lt;&lt; "Is_deleted";
+                                    for(int count = 0; count &lt; sizeof(entries); count++){
+                                        cout &lt;&lt; endl &lt;&lt; entries[count].date &lt;&lt; "\t" &lt;&lt; entries[count].income &lt;&lt; "\t" &lt;&lt; entries[count].expense &lt;&lt; "\t" &lt;&lt; entries[count].is_deleted;
+                                    }
+                                }
+                                
+                                
+                                accns::Accountentry* list_all_data() {
+                                    int count = getRecordCount();
+                                    int ccount = 0;
+                                    accns::Accountentry entries[count];
+                                    ifstream infile;
+                                    accns::Accountentry entry;
+                                    infile.open("dailyacc.dat",ios::in|ios::binary);
+                                
+                                    while(infile.read((char*)&entry,sizeof(entry))){
+                                        entries[ccount++] = entry;
+                                    }
+                                    infile.close();
+                                    return entries;
+                                }
+                                
+                                accns::Accountentry* list_all_data(int month) {
+                                    int count = getRecordCount();
+                                    int ccount = 0;
+                                    accns::Accountentry entries[count];
+                                    ifstream infile;
+                                    accns::Accountentry entry;
+                                    infile.open("dailyacc.dat",ios::in|ios::binary);
+                                    int trimcount = 0;
+                                    while(infile.read((char*)&entry,sizeof(entry))){
+                                        string date = entry.date;
+                                        if(date.find('/'+month+'/') > 0){
+                                            trimcount++;
+                                            entries[ccount++] = entry;
+                                        }
+                                    }
+                                    infile.close();
+                                    accns::Accountentry trim_entries[trimcount];
+                                    for(int i = 0; i &lt; trimcount; i ++){
+                                        trim_entries[i] = entries[i];
+                                    }
+                                
+                                    
+                                    return trim_entries;
+                                }
+                                
+                                
+                                void delete_data(accns::Accountentry param){
+                                    accns::Accountentry* entries = list_all_data();
+                                    accns::Accountentry entry = fetch_data(param);
+                                    entry.is_deleted = true;
+                                    for(int i = 0;i &lt; sizeof(entries);i++){
+                                        if(entries[i].date == entry.date){
+                                            entries[i] = entry;
+                                        }
+                                    }
+                                
+                                    char fileName[]  = "temp.dat";
+                                    write_data(fileName,entries);
+                                    remove("dailyacc.dat");
+                                    rename(fileName,"dailyacc.dat");
+                                
+                                }
+                                
+                                
+                                void undo_delete_data(accns::Accountentry param){
+                                    accns::Accountentry* entries = list_all_data();
+                                    accns::Accountentry entry = fetch_data(param);
+                                    entry.is_deleted = false;
+                                    for(int i = 0;i &lt; sizeof(entries);i++){
+                                        if(entries[i].date == entry.date){
+                                            entries[i] = entry;
+                                        }
+                                    }
+                                
+                                    char fileName[]  = "temp.dat";
+                                    write_data(fileName,entries);
+                                    remove("dailyacc.dat");
+                                    rename(fileName,"dailyacc.dat");
+                                
+                                }
+                                
+                                
+                                void update_data(accns::Accountentry param){
+                                    accns::Accountentry* entries = list_all_data();
+                                   
+                                    for(int i = 0;i &lt; sizeof(entries);i++){
+                                        if(entries[i].date == param.date){
+                                            entries[i] = param;
+                                        }
+                                    }
+                                
+                                    char fileName[]  = "temp.dat";
+                                    write_data(fileName,entries);
+                                    remove("dailyacc.dat");
+                                    rename(fileName,"dailyacc.dat");
+                                
+                                }
+                                
+                                
+                                void write_data(char fileName[],accns::Accountentry entry[]){
+                                    ofstream outfile;
+                                    outfile.open(fileName,ios::out|ios::binary);
+                                    for(int i=0;i &lt;  sizeof(entry);i++) {
+                                        outfile.write((char*)&entry[i],sizeof(entry[i]));
+                                    }
+                                    outfile.close();
+                                }
+                                
+                                void write_data(accns::Accountentry entry){
+                                    ofstream outfile;
+                                    outfile.open("dailyacc.dat",ios::out|ios::binary);
+                                    outfile.write((char*)&entry,sizeof(entry));
+                                    outfile.close();
+                                }
+                                
+                                void write_data(accns::Accountentry entry[]){
+                                    ofstream outfile;
+                                    outfile.open("dailyacc.dat",ios::out|ios::binary);
+                                    for(int i=0;i &lt; sizeof(entry);i++) {
+                                        outfile.write((char*)&entry[i],sizeof(entry[i]));
+                                    }
+                                    outfile.close();
+                                }
+                                
+                                accns::Accountentry fetch_data(accns::Accountentry param){
+                                    ifstream infile;
+                                    accns::Accountentry entry;
+                                    infile.open("dailyacc.dat",ios::in|ios::binary);
+                                
+                                    while(infile.read((char*)&entry,sizeof(entry))){
+                                        if(param.date == entry.date)
+                                        {
+                                            infile.close();
+                                            return entry;
+                                        }
+                                    }
+                                    infile.close();
+                                    return;
+                                }
+                                
+                                int getRecordCount(){
+                                    ifstream infile;
+                                    accns::Accountentry entry;
+                                    infile.open("dailyacc.dat",ios::in|ios::binary);
+                                    int count = 0;
+                                    while(infile.read((char*)&entry,sizeof(entry))){
+                                        count++;
+                                    }
+                                    infile.close();
+                                    return count;
+                                }
+                                
+                                
+                            </code>
+                        </pre>
+                    </div>
+                </p>
+            </div>
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../js/prism.js"></script>
+    <script src="../js/about.js"></script>
+
+</body>
+
+</html>

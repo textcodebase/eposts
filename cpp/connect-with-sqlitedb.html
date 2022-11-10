@@ -8,6 +8,7 @@
     <title>ePosts</title>
     <link href="../css/home.css" rel="stylesheet">
     <link href="../css/topnav.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" />
 
 
 </head>
@@ -15,20 +16,26 @@
 <body>
     <div class="container border-out">
         <div class="header fill">
-            <div class="title">ePosts</div>
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
             <div class="topnav mtop">
-                <a href="../index.html">Java</a>
+                <a href="../index.html">Home</a>    
+                <a href="../java.html">Java</a>
                 <a href="../csharp.html">C#</a>
                 <a class="active" href="../cpp.html">C++</a>
                 <a href="../python.html">Python</a>
-                <a href="../datascience.html">Data Science</a>
+                <a href="../mailme.html">Mail me</a>
             </div>
         </div>
         <div class="main ">
             <div>
-                <h5 class="breadcrum"><a href="../cpp.html">C++</a> / <a href="../cpp.html#dbconnection">DB Connection</a></h5>
             <div style="margin: 30px;">
+                
                 <h2>Accessing SQLite Database using C++</h2>
+                <div> 
+                    <img src="../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 06, 2022</small>
+                </div>
+                
                 <p>
                     Following is the code sample for accessing SQLite Database using C++.include
                     the following dependency in your project, for smooth running of the code.
@@ -49,6 +56,7 @@
             </div>
                 <div class="codesample">
                     <pre>
+                        <code class="language-cpp">
                         #include &lt;iostream&gt;
                         #include &lt;iomanip&gt;
                         #include &lt;stdio.h&gt;
@@ -109,17 +117,18 @@
                             std::cin.get();
                             return 0;
                         } 
+                    </code>
                     </pre>
                 </div>
                     
             </div>
         </div>
-        <h5 class="breadcrum"><a href="../cpp.html">C++</a> / <a href="../cpp.html#dbconnection">DB Connection</a></h5>
 
         <div class="footer fill">
             <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
         </div>
     </div>
+    <script src="../js/prism.js"></script>   
     <script src="../js/about.js"></script>
 
 </body>

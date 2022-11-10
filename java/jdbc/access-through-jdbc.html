@@ -8,6 +8,7 @@
     <title>ePosts</title>
     <link href="../../css/home.css" rel="stylesheet">
     <link href="../../css/topnav.css" rel="stylesheet">
+    <link href="../../css/prism.css" rel="stylesheet" />
 
 
 </head>
@@ -15,100 +16,107 @@
 <body>
     <div class="container border-out">
         <div class="header fill">
-            <div class="title">ePosts</div>
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
             <div class="topnav mtop">
-                <a class="active" href="../../index.html">Java</a>
+                <a href="../../index.html">Home</a>    
+                <a class="active" href="../../java.html">Java</a>
                 <a href="../../csharp.html">C#</a>
                 <a href="../../cpp.html">C++</a>
                 <a href="../../python.html">Python</a>
-                <a href="../../datascience.html">Data Science</a>
+                <a href="../../mailme.html">Mail me</a>
             </div>
         </div>
         <div class="main ">
-            <div>
-                <h5 class="breadcrum"><a href="../../index.html">Java</a> / <a href="../../index.html#jdbc">JDBC</a></h5>
-            <div style="margin: 30px;">
-                <h2>Accessing MS Access Database using JDBC</h2>
-                <p>
-                    Following is the code sample for accessing MS Access Database using JDBC.include
-                    the following dependencies in your POM file, for smooth running of the code.
-                </p>
-                <div>
-                <pre>
-                    &lt;dependency&gt;
-                            &lt;groupId&gt;net.sf.ucanaccess&lt;/groupId&gt;
-                            &lt;artifactId&gt;ucanaccess&lt;/artifactId&gt;
-                            &lt;version&gt;5.0.1&lt;/version&gt;
-                    &lt;/dependency&gt;
-                </pre>
+            
+                <div style="margin: 30px;">
+                    <h2>Accessing MS Access Database using JDBC</h2>
+                    <img src="../../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 06, 2022</small>
                 </div>
-                <p>
-                    This dependency will include the following libraries to your classpath.
+                <div style="margin: 30px;">
+                    <p>
+                        Following is the code sample for accessing MS Access Database using JDBC.include
+                        the following dependencies in your POM file, for smooth running of the code.
+                    </p>
+                    <div class="codesample">
                     <pre>
-                        ucanaccess-5.0.1.jar
-                        jackcess-3.0.1.jar
-                        hsqldb-2.5.0.jar
-                        commons-lang3-3.8.1.jar
-                        commons-logging-1.2.jar
+                        <code class="language-xml">
+                        &lt;dependency&gt;
+                                &lt;groupId&gt;net.sf.ucanaccess&lt;/groupId&gt;
+                                &lt;artifactId&gt;ucanaccess&lt;/artifactId&gt;
+                                &lt;version&gt;5.0.1&lt;/version&gt;
+                        &lt;/dependency&gt;
+                        </code>
                     </pre>
-                </p>
-            </div>
-                <div class="codesample">
+                    </div>
+                    <p>
+                        This dependency will include the following libraries to your classpath.
+                        <pre>
+                            ucanaccess-5.0.1.jar
+                            jackcess-3.0.1.jar
+                            hsqldb-2.5.0.jar
+                            commons-lang3-3.8.1.jar
+                            commons-logging-1.2.jar
+                        </pre>
+                    </p>
+                    <div class="codesample">
 
-                
-                    <pre>
-                        package com.eposts.io;
-
-                        import java.sql.Connection;
-                        import java.sql.DriverManager;
-                        import java.sql.PreparedStatement;
-                        import java.sql.ResultSet;
-                        import java.sql.Statement;
-                        
-                        public class App {
-                        
-                            public static void main(String[] args) {
-                                String databaseURL = "jdbc:ucanaccess://D:/workouts/java/eposts.io/user.accdb";
-                                try {
-                                    //Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
-                                    Connection connection = DriverManager.getConnection(databaseURL); 
-                                    String sql = "INSERT INTO Person (name,age,gender) VALUES (?, ?, ?)";
-                                    PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                                    preparedStatement.setString(1, "Jim");
-                                    preparedStatement.setInt(2, 43);
-                                    preparedStatement.setString(3, "M");
-                                    int row = preparedStatement.executeUpdate();
-                                    if (row > 0) {
-                                        System.out.println("A row has been inserted successfully.");
-                                    }
-                                    sql = "SELECT * FROM Person";
-                                    Statement statement = connection.createStatement();
-                                    ResultSet result = statement.executeQuery(sql);
-                                    while (result.next()) {
-                                        int id = result.getInt("ID");
-                                        String name = result.getString("name");
-                                        int age = result.getInt("age");
-                                        String gender = result.getString("gender");
-                                        System.out.println(id+" , "+name+" , "+age+" , "+gender);
-                                        }
-                                    
-                                }catch(Exception ex){
-                                    ex.printStackTrace();
-                                }
-                            }
-                        } 
-                    </pre>
-                </div>
                     
-            </div>
-        </div>
-        <h5 class="breadcrum"><a href="../../index.html">Java</a> / <a href="../../index.html#jdbc">JDBC</a></h5>
+                        <pre>
+                            <code class="language-java">
+                            package com.eposts.io;
 
+                            import java.sql.Connection;
+                            import java.sql.DriverManager;
+                            import java.sql.PreparedStatement;
+                            import java.sql.ResultSet;
+                            import java.sql.Statement;
+                            
+                            public class App {
+                            
+                                public static void main(String[] args) {
+                                    String databaseURL = "jdbc:ucanaccess://D:/workouts/java/eposts.io/user.accdb";
+                                    try {
+                                        //Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+                                        Connection connection = DriverManager.getConnection(databaseURL); 
+                                        String sql = "INSERT INTO Person (name,age,gender) VALUES (?, ?, ?)";
+                                        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                                        preparedStatement.setString(1, "Jim");
+                                        preparedStatement.setInt(2, 43);
+                                        preparedStatement.setString(3, "M");
+                                        int row = preparedStatement.executeUpdate();
+                                        if (row > 0) {
+                                            System.out.println("A row has been inserted successfully.");
+                                        }
+                                        sql = "SELECT * FROM Person";
+                                        Statement statement = connection.createStatement();
+                                        ResultSet result = statement.executeQuery(sql);
+                                        while (result.next()) {
+                                            int id = result.getInt("ID");
+                                            String name = result.getString("name");
+                                            int age = result.getInt("age");
+                                            String gender = result.getString("gender");
+                                            System.out.println(id+" , "+name+" , "+age+" , "+gender);
+                                            }
+                                        
+                                    }catch(Exception ex){
+                                        ex.printStackTrace();
+                                    }
+                                }
+                            } 
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                
+                    
+        </div>
         <div class="footer fill">
             <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
         </div>
     </div>
     <!-- <script src="js/home.js"></script> -->
+    <script src="../../js/prism.js"></script>
     <script src="../../js/about.js"></script>
 
 </body>

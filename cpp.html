@@ -8,6 +8,7 @@
     <title>ePosts</title>
     <link href="css/home.css" rel="stylesheet">
     <link href="css/topnav.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/card.css">
 
 
 </head>
@@ -15,25 +16,38 @@
 <body>
     <div class="container border-out">
         <div class="header fill">
-            <div class="title">ePosts</div>
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
             <div class="topnav mtop">
-                <a href="index.html">Java</a>
+                <a href="index.html">Home</a>    
+                <a href="java.html">Java</a>
                 <a href="csharp.html">C#</a>
                 <a class="active" href="cpp.html">C++</a>
                 <a href="python.html">Python</a>
-                <a href="datascience.html">Data Science</a>
+                <a href="mailme.html">Mail me</a>
             </div>
         </div>
-        <div class="main ">
-            <div id="dbconnection">
-                <h3>DB Connection</h3>
+        <div class="main row">
+            <div class="card col">
+                <div class="card-title">C++</div>
+                <div class="card-container">
+                    <h6><a href="./cpp/connect-with-sqlitedb.html">Accessing SQLite Database using C++</a></h6>
+                    <h6><a href="./cpp/writing-data-to-a-binary-file.html">Writing Data to a Binary File using C++</a></h6>
+                    <h6><a href="./cpp/simple-logger-for-cpp.html">Simple Logger API example for C++</a></h6>
+                </div>
+            </div>
+        </div>
+            <!-- <div id="dbconnection">
+                <h3>Data I/O</h3>
                 <ul>
                     <li>
                        <h5><a href="./cpp/connect-with-sqlitedb.html">Accessing SQLite Database using C++</a></h5>
                     </li>
+                    <li>
+                        <h5><a href="./cpp/writing-data-to-a-binary-file.html">Writing Data to a Binary File using C++</a></h5>
+                     </li>
                 </ul> 
-            </div>
-        </div>
+            </div> -->
+        
         <div class="footer fill">
             <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
         </div>
