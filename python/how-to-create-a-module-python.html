@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../css/home.css" rel="stylesheet">
+    <link href="../css/topnav.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../index.html">Home</a>    
+                <a href="../java.html">Java</a>
+                <a href="../csharp.html">C#</a>
+                <a href="../cpp.html">C++</a>
+                <a class="active" href="../python.html">Python</a>
+                <a href="../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+                
+                <div style="margin: 30px;">
+                    <h2>How to create modules in Python</h2> 
+                    <img src="../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 12, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                    <p>
+                        A module is a simple python programe, that is kept inside a package.for including 
+                        a simple programme in to your current code use the import statement as below.
+                        <pre>
+                            import <module-name>
+                            example:
+                                import adder    #includes 'adder.py' in to your code.
+                        </pre>
+                    </p>
+
+                    <p>
+                        A package is a folder that contains one or more Python modules. It
+                        must also contain a special module called __init__.py.
+                        Here is an example of a package so that you can create a package without
+                        any hassel.
+                            example:
+                                mypackage
+                                |
+                                |
+                                |-> __init__.py
+                                |-> module1.py
+                                |-> module2.py
+                                |
+                                |--->subpackage
+                                    |
+                                    ->module3.py
+
+                    </p>
+                    <p>
+                        in the above example mypackage is a folder which contains __init__.py 
+                        module1.py,module2.py programmes(modules).subpackage is a subfolder and it contains
+                        another module(programme) module3.py.
+                    </p>
+                    <p>
+                        When including these modules in to other code blocks we need to declare
+                        the following import statements.
+                    </p>
+                    <p>
+                        <pre>
+                            import <module>                 # Import all of <module>’s namespace into
+                                                            # the name <module>. Import module names
+                                                            # can be accessed from the calling module
+                                                            # with <module>.<name>.
+                            import <module> as <other_name> # Import all of <modules>’s namespace into
+                                                            # the name <other_name>. Import module
+                                                            # names can be accessed from the calling
+                                                            # module with <other_name>.<name>.
+                            from <module> import <name1>, <name2>, ...
+                                                            # Import only the names <name1>, <name2>,
+                                                            # etc, from <module>. The names are added
+                                                            # to the calling modules’s local namespace
+                                                            # and can be accessed directly.
+                        </pre>
+                    </p>
+                    <div class="codesample">
+                        <span>classes.py</span>
+                        <pre>
+                            <code class="language-python">
+                                
+                                from hardware import computer
+                                system = computer.Desktop("Intel 12 Gen ","32 RAM","TVS Keybord","Logitek Mouse")
+                                system.description()
+
+                                from hardware.computer as hw
+
+                                system = hw.Desktop("Intel 12 Gen ","32 RAM","TVS Keybord","Logitek Mouse")
+                                system.description()
+
+                            </code>
+                        </pre>
+                    </div>
+                    <p>
+                        In the above example the Desktop.py is kept under the folder hardware, so we 
+                        are importing computer module using 'from hardware import computer' import
+                        statement.
+                    </p>
+                </div>
+                
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../js/prism.js"></script>   
+    <script src="../js/about.js"></script>
+
+</body>
+
+</html>

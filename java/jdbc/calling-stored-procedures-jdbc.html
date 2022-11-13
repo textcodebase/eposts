@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../../css/home.css" rel="stylesheet">
+    <link href="../../css/topnav.css" rel="stylesheet">
+    <link href="../../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../../index.html">Home</a>    
+                <a class="active" href="../../java.html">Java</a>
+                <a href="../../csharp.html">C#</a>
+                <a href="../../cpp.html">C++</a>
+                <a href="../../python.html">Python</a>
+                <a href="../../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+                
+                <div style="margin: 30px;">
+                    <h2>Calling Stored Procedures using JDBC</h2>
+                    <img src="../../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 12, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                    <p>
+                        Following example shows how to call a stored procedure using JDBC.
+                        in this code we are preparing CallableStatement and setting the in 
+                        parameter, and after executing the statement, we can get the output
+                        using get method.
+                    </p>
+                    <div class="codesample">
+                        <span>MySQLClient.java</span>
+                        <pre>
+                            <code class="">
+                                /**
+                                    CREATE THE FOLLOWING PROCEDURE IN YOUR DATABASE AND EXECUTING 
+                                    THE FOLLOWING SAMPLE.
+                                */
+
+                                CREATE PROCEDURE `get_product_name`(IN P_ID INT, OUT P_NAME VARCHAR(45))
+                                BEGIN
+                                select name into  P_NAME from product where ID = P_ID; 
+                                END
+                            </code>
+                            <code class="language-java">
+                                package com.text.eposts.jdbc.io;
+
+                                import java.sql.Connection;
+                                import java.sql.DriverManager;
+
+                                import com.mysql.cj.jdbc.CallableStatement;
+
+                                public class MySQLClient {
+
+                                        public static void main(String[] args) {
+                                            try{  
+                                                    Connection con=DriverManager.getConnection(  
+                                                    "jdbc:mysql://localhost:3306/shopping","root","******");  
+                                                    String sql = "{call get_product_name (?, ?)}";
+                                                    CallableStatement cst = (CallableStatement) con.prepareCall(sql);
+                                                    cst.setInt(1, 1);
+                                                    if(cst.execute()) {
+                                                        String name = cst.getString(2);
+                                                        System.out.println(name);
+                                                    }
+                                                    con.close();  
+                                                }catch(Exception e){ 
+                                                    System.out.println(e);
+                                                }  
+                                        }  
+                                    }
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../../js/prism.js"></script>   
+    <script src="../../js/about.js"></script>
+
+</body>
+
+</html>

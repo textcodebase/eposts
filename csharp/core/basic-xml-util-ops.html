@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../../css/home.css" rel="stylesheet">
+    <link href="../../css/topnav.css" rel="stylesheet">
+    <link href="../../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../../index.html">Home</a>    
+                <a href="../../java.html">Java</a>
+                <a class="active" href="../../csharp.html">C#</a>
+                <a href="../../cpp.html">C++</a>
+                <a href="../../python.html">Python</a>
+                <a href="../../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+                
+                <div style="margin: 30px;">
+                    <h2>How to Load an XML document and Process using C#</h2> 
+                    <img src="../../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 06, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                    <div class="codesample">
+                        <pre>
+                            <code class="language-csharp">
+                            using System;
+                            using System.Xml;
+                            using System.Collections;
+                            using System.IO;
+                            
+                            namespace Text.XML.worker
+                            {
+                                /// <summary>
+                                /// Class that acts as a worker object that performs all XML Related 
+                                /// operation.
+                                /// 
+                				/// $version: 1.0
+                                /// </summary>
+                                public class XmlWorker
+                                {
+                                    /// <summary>
+                                    /// Initializes a new instance of the <see cref="XmlWorker"/> class.
+                                    /// </summary>
+                                    public XmlWorker()
+                                    {
+                            
+                                    }
+                                    
+                                    /// <summary>
+                                    /// Loads the XML.
+                                    /// </summary>
+                                    /// <param name="pStrFileName">Name of the p STR file.</param>
+                                    /// <returns></returns>
+                                    public static XmlDocument LoadXML(string pStrFileName)
+                                    {
+                                        if((pStrFileName == null) || (!File.Exists(pStrFileName)))
+                                        {
+                                            throw new FileNotFoundException(pStrFileName);
+                                        }
+                            
+                                        XmlReader reader = new XmlTextReader(pStrFileName);
+                                        XmlDocument document = new XmlDocument();
+                                        document.Load(reader);		
+                            
+                                        return document;
+                                    }
+                            
+                            
+                                    /// <summary>
+                                    /// Gets the attribute value.
+                                    /// </summary>
+                                    /// <param name="pObjXmlNode">The p obj XML node.</param>
+                                    /// <param name="pStrAttrKey">The p STR attr key.</param>
+                                    /// <returns></returns>
+                                    public static string GetAttributeValue(XmlNode pObjXmlNode,string pStrAttrKey)
+                                    {
+                                        try 
+                                        {
+                                            return pObjXmlNode.Attributes.GetNamedItem(pStrAttrKey).InnerText;
+                                        } 
+                                        catch (Exception e)
+                                        {
+                                            if(e.Message == null){}
+                                            return null;
+                                        }
+                                    }
+                            
+                                    /// <summary>
+                                    /// Gets the node list.
+                                    /// </summary>
+                                    /// <param name="parentNode">The parent node.</param>
+                                    /// <param name="pStrXPath">The p STR X path.</param>
+                                    /// <returns></returns>
+                                    public static IEnumerator GetNodeList(XmlNode parentNode,string pStrXPath)
+                                    {
+                                        XmlNodeList modulesList = parentNode.SelectNodes(pStrXPath);
+                                        IEnumerator enums = null;
+                                        if((modulesList.Count != 0) &&
+                                            (modulesList.Item(0).HasChildNodes))
+                                        {
+                                            XmlNode modulesNode = modulesList.Item(0);
+                                            enums = modulesNode.ChildNodes.GetEnumerator();
+                                        }
+                                        return enums;
+                                    }
+                                        
+                                }
+                            }
+    
+                            </code>
+                        </pre>
+                    </div>
+                    
+                </div>
+                
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../../js/prism.js"></script>   
+    <script src="../../js/about.js"></script>
+
+</body>
+
+</html>

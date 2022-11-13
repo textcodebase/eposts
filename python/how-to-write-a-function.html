@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../css/home.css" rel="stylesheet">
+    <link href="../css/topnav.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../index.html">Home</a>    
+                <a href="../java.html">Java</a>
+                <a href="../csharp.html">C#</a>
+                <a href="../cpp.html">C++</a>
+                <a class="active" href="../python.html">Python</a>
+                <a href="../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+                
+                <div style="margin: 30px;">
+                    <h2>How to write a Function in Python</h2> 
+                    <img src="../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 12, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                    <p>
+                        Python functions are written witn two keywords, <b>def</b> and <b>return</b>.
+                        the key word <b>def</b> identifies starting of a method.<b>return</b> keyword
+                        returns a field if it's applicable, there is no expilcit return type in python.
+                        use the correct indent while writing a function.
+                    </p>
+                    <div class="codesample">
+                        <span>functions.py</span>
+                        <pre>
+                            <code class="language-python">
+                                def add(num1,num2):
+                                    num3 = num1 + num2
+                                    return num3
+                                
+                                def average(num1,num2):
+                                    # add function call from another method
+                                    num3 = add(num1,num2)
+                                    avg = num3 / 2
+                                    return avg
+                                
+                                #function add called from global scope.
+                                print(add(30,40)) #prints 70
+                                print(average(30 40)) #prints 35
+                            </code>
+                        </pre>
+                    </div>
+                    <p>
+                        For executing a function you can call directly from main or you can call the 
+                        function from another function.
+                    </p>
+                </div>
+                
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../js/prism.js"></script>   
+    <script src="../js/about.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../css/home.css" rel="stylesheet">
+    <link href="../css/topnav.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../index.html">Home</a>    
+                <a href="../java.html">Java</a>
+                <a href="../csharp.html">C#</a>
+                <a href="../cpp.html">C++</a>
+                <a class="active" href="../python.html">Python</a>
+                <a href="../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+                
+                <div style="margin: 30px;">
+                    <h2>How to write classes and intefaces in Python</h2> 
+                    <img src="../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 12, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                    <p>
+                        interfaces,abstract classes and classes are integral part of any 
+                        object oriented programming(OOP) language.python is no Exception
+                        to that.
+                    </p>
+                    <p>
+                            Following example shows how we can write interfaces,abstract classes
+                        and derived classes.here in this example,Divice is an interface,computer
+                        and Desktop are its implementing classes.discription method is the abstract
+                        method which is overriden in all the implementation classes.
+    
+                    </p>
+                    <p>
+                        Here in the main section, we can see the polymorpic behavier of the device's
+                        instance.
+                    </p>
+                    <div class="codesample">
+                        <span>classes.py</span>
+                        <pre>
+                            <code class="language-python">
+                                #interface
+                                class Device:
+                                    def description(self):
+                                        pass
+                                
+                                #derived class from device
+                                class Computer(Device):
+    
+                                    def __init__(self,processor,ram):
+                                        self.processor = processor
+                                        self.ram = ram
+
+                                    def description(self):
+                                        print(f"This computer has {self.processor} Processor and {self.ram} of RAM")
+                                
+                                #derived class from computer class
+                                class Desktop(Computer):
+                                    def __init__(self, processor, ram,keybord,mouse):
+                                        super().__init__(processor, ram)
+                                        self.keybord = keybord
+                                        self.mouse = mouse
+                                        
+                                    def description(self):
+                                        print(f"This Desktop has {self.processor},{self.ram} {self.keybord} and {self.mouse}")
+            
+
+                                computer = Computer("Intel 12gen eon","32 GB")
+                                computer.description()
+                                #print(computer.processor)
+                                
+                                device = Desktop("Intel 12gen eon","32 GB","TVS keybord","Logitek mouse");
+                                device.description()
+
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+                
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../js/prism.js"></script>   
+    <script src="../js/about.js"></script>
+
+</body>
+
+</html>
