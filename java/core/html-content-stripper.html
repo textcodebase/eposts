@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../../css/home.css" rel="stylesheet">
+    <link href="../../css/topnav.css" rel="stylesheet">
+    <link href="../../css/prism.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../../index.html">Home</a>    
+                <a class="active" href="../../java.html">Java</a>
+                <a href="../../csharp.html">C#</a>
+                <a href="../../cpp.html">C++</a>
+                <a href="../../python.html">Python</a>
+                <a href="../../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+                
+                <div style="margin: 30px;">
+                    <h2>Title</h2> 
+                    <img src="../../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 06, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                    <p>
+                        The Following code sample stripes content from a HTML file.
+                    </p>
+                    <div class="codesample">
+                        <span>
+                            HTMLStripper.java
+                        </span>
+                        <pre>        
+                            <code class="language-java">
+                                package com.text.eposts.io;
+
+                                import java.io.BufferedReader;
+                                import java.io.File;
+                                import java.io.FileInputStream;
+                                import java.io.InputStream;
+                                import java.io.InputStreamReader;
+                                import java.net.URL;
+                                import java.net.URLConnection;
+
+                                public class HTMLStripper {
+
+                                    private String htmlContent = "";
+                                    
+                                    public HTMLStripper(String httpUrl) throws Exception {
+                                        this.htmlContent = getContent(httpUrl);
+                                    }
+                                    
+                                    public HTMLStripper(File htmlFile) throws Exception {
+                                        this.htmlContent = getContent(htmlFile);
+                                    }
+                                    
+                                    private String getContent(String strUrl) throws Exception {
+                                        URL url = new URL(strUrl);
+                                        URLConnection con = url.openConnection();
+                                        //int len = con.getContentLength();
+                                        //System.out.println(len);
+                                        InputStream iStream = con.getInputStream();
+                                        BufferedReader reader = new BufferedReader(new InputStreamReader(iStream));
+                                        String line = "";
+                                        StringBuffer buffer = new StringBuffer();
+                                        while((line = reader.readLine())!=null) {
+                                            buffer.append(line+"\r\n");
+                                        }
+                                        String htmlContent = buffer.toString();
+                                        return htmlContent;
+                                    }
+                                    
+                                    private String getContent(File file) throws Exception {
+                                        FileInputStream iStream = new FileInputStream(file);
+                                        byte[] bytes = new byte[iStream.available()];
+                                        iStream.read(bytes);
+                                        String htmlContent = new String(bytes);
+                                        iStream.close();
+                                        return htmlContent;
+                                    }
+                                    
+                                    public String strip() {
+                                        return this.htmlContent;
+                                    }
+                                    
+                                    
+                                    public static void main(String[] args)throws Exception {
+                                        HTMLStripper stripper = new HTMLStripper("https://www.w3schools.com/java/default.asp");
+                                        String htmlString = stripper.strip(); 
+                                //		String htmlString = "<html><body>content</body></html>";
+                                        
+                                        String regexp = "<[^>]*>";
+                                //		Pattern pattern = Pattern.compile(regexp);
+                                //		Matcher matcher = pattern.matcher(htmlString);
+                                        
+                                //		System.out.println(matcher.matches());
+                                //		htmlString = htmlString.replace
+                                        System.out.println(htmlString.replaceAll(regexp, ""));
+                                    }
+
+                                }
+                            </code>
+                        </pre>
+                </div>
+                
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../../js/prism.js"></script>   
+    <script src="../../js/about.js"></script>
+
+</body>
+
+</html>
