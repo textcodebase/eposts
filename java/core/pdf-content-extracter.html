@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ePosts</title>
+    <link href="../../css/home.css" rel="stylesheet">
+    <link href="../../css/topnav.css" rel="stylesheet">
+    <link href="../../css/prism.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container border-out">
+        <div class="header fill">
+            <div><span class="title-e">e</span><span class="title">Posts</span></div>
+            <div class="topnav mtop">
+                <a href="../../index.html">Home</a>    
+                <a class="active" href="../../java.html">Java</a>
+                <a href="../../csharp.html">C#</a>
+                <a href="../../cpp.html">C++</a>
+                <a href="../../python.html">Python</a>
+                <a href="../../mailme.html">Mail me</a>
+            </div>
+        </div>
+        <div class="main ">
+                
+                <div style="margin: 30px;">
+                    <h2>PDF Content Extractor using PDF Box Library </h2> 
+                    <img src="../../img/me.jpg" width="3%" style="border:2px solid #333;border-radius:50%"/>     
+                    <small>By Justin S A | Last updated: November 06, 2022</small>
+                </div>
+                <div style="margin: 30px;">
+                    <p>
+                        The below sample code extracts content from a pdf file.
+                        for this we need to use pdf-box dependence to the maven pom File
+                    </p>
+                    <pre>
+                        <dependency>
+                            <groupId>org.apache.pdfbox</groupId>
+                            <artifactId>pdfbox</artifactId>
+                            <version>2.0.27</version>
+                        </dependency>
+                    </pre>
+                    <div class="codesample">
+                        <span>
+                            PDFExtractor.java
+                        </span>
+                        <pre>        
+                            <code class="language-java">
+                                package com.text.eposts.io;
+
+                                import java.io.File;
+
+                                import org.apache.pdfbox.pdmodel.PDDocument;
+                                import org.apache.pdfbox.text.PDFTextStripper;
+
+                                public class PDFExtractor {
+                                    
+                                    private PDDocument document = null;
+                                    
+                                    public PDFExtractor(String file) throws Exception {
+                                        super();
+                                        this.document = PDDocument.load(new File(file));
+                                    }
+                                    public String getPageContent(int pageNo)throws Exception {
+                                        PDFTextStripper stripper = new PDFTextStripper();
+                                        stripper.setStartPage(pageNo);
+                                        stripper.setEndPage(pageNo);		
+                                        String text = stripper.getText(document);
+                                        return text;
+                                    }
+                                    public static void main(String[] args) throws Exception {
+                                        PDFExtractor extractor = new PDFExtractor("sample.pdf");
+                                        System.out.println(extractor.getPageContent(4));
+                                    }
+                                    
+                                }
+                            </code>
+                        </pre>
+                </div>
+                
+        </div>
+        <div class="footer fill">
+            <div class="label">Text Inc., Copy right Reserved 2021 - 2024&copy</div>
+        </div>
+    </div>
+    <script src="../../js/prism.js"></script>   
+    <script src="../../js/about.js"></script>
+
+</body>
+
+</html>
